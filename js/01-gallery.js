@@ -1,6 +1,7 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const gallery = document.querySelector(".gallery");
+
 //Создание разметки элемента галлереи
 const images = galleryItems.map((item) => {
   const imgItem = document.createElement("div");
@@ -20,26 +21,21 @@ const images = galleryItems.map((item) => {
 // console.log(images);
 gallery.append(...images);
 
-gallery.addEventListener("click", onImgClick, false);
+gallery.addEventListener("click", onImgClick);
 
 function onImgClick(e) {
-  // отменяем стандартное действие браузера
-  e.preventDefault();
-  console.log("Target - ", e.target.dataset.source);
+  e.preventDefault(); // отменяем стандартное действие браузера
+  if (e.target.tagName !== "IMG") return; //Предотвращаем срабатывание на не-изображениях
   const instance = basicLightbox.create(
-    `
-	 		<img width="1400" height="900" src="${e.target.dataset.source}">
-	  	`
+    `<img width="1400" height="900" src="${e.target.dataset.source}">`
   );
   instance.show();
+  const onKeydown = (e) => {
+    e.preventDefault();
+    if (e.code == "Escape") {
+      instance.close();
+      gallery.removeEventListener("keydown", onKeydown);
+    }
+  };
+  gallery.addEventListener("keydown", onKeydown);
 }
-
-// document.querySelector("button.image").onclick = () => {
-//   basicLightbox
-//     .create(
-//       `
-// 		<img width="1400" height="900" src="https://placehold.it/1400x900">
-// 	`
-//     )
-//     .show();
-// };
