@@ -18,7 +18,7 @@ const images = galleryItems.map((item) => {
   imgItem.append(anchor);
   return imgItem;
 });
-// console.log(images);
+
 gallery.append(...images);
 
 gallery.addEventListener("click", onImgClick);
