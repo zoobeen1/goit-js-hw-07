@@ -18,20 +18,18 @@ const images = galleryItems.map((item) => {
 
 gallery.append(...images);
 
-// var lightbox = $(".gallery a").simpleLightbox((captions = true));
 let lightbox = new SimpleLightbox(".gallery a", {
-  /* options */
+  //options
   caption: true,
   captionSelector: "img",
   captionsData: "alt",
   captionDelay: 250,
 });
-console.log(lightbox);
-// let galleryLightBox = new SimpleLightbox(".gallery a");
+
 lightbox.on("show.simplelightbox", function () {
   // do something…
 });
 
-// galleryLightBox.on("error.simplelightbox", function (e) {
-//   console.log(e); // some usefull information
-// });
+lightbox.on("error.simplelightbox", function (e) {
+  console.log(e); // some usefull information
+});
