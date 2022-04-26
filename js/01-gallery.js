@@ -28,8 +28,8 @@ function onImgClick(e) {
   instance = basicLightbox.create(
     `<img width="1400" height="900" src="${e.target.dataset.source}">`,
     {
-      onShow: (instance) => gallery.addEventListener("keydown", onKeydown),
-      onClose: (instance) => gallery.removeEventListener("keydown", onKeydown),
+      onShow: () => gallery.addEventListener("keydown", onKeydown),
+      onClose: () => gallery.removeEventListener("keydown", onKeydown),
     }
   );
   instance.show();
