@@ -26,16 +26,14 @@ function onImgClick(e) {
   e.preventDefault(); // отменяем стандартное действие браузера
   if (e.target.tagName !== "IMG") return; //Предотвращаем срабатывание на не-изображениях
   instance = basicLightbox.create(
-    `<img width="1400" height="900" src="${e.target.dataset.source}">`
+    `<img width="1400" height="900" src="${e.target.dataset.source}">`,
+    {
+      onShow: (instance) => gallery.addEventListener("keydown", onKeydown),
+      onClose: (instance) => gallery.removeEventListener("keydown", onKeydown),
+    }
   );
   instance.show();
-  gallery.addEventListener("keydown", onKeydown);
 }
 function onKeydown(e) {
-  console.log("work");
-  e.preventDefault();
-  if (e.code == "Escape") {
-    instance.close();
-    gallery.removeEventListener("keydown", onKeydown);
-  }
+  if (e.code == "Escape") instance.close();
 }
